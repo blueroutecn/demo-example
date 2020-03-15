@@ -22,9 +22,9 @@ public class TypeInterceptor implements Interceptor {
 
         String body = new String(event.getBody());
         if (body.contains("hello")) {
-            headers.put("type", "hello-type");
+            headers.put("topic", "first");
         } else {
-            headers.put("type","unknown-type");
+            headers.put("topic","second");
         }
         return event;
     }
