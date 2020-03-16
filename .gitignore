@@ -4,4 +4,4 @@
 /.idea/*
 /flume-demo/target/
 /spark-demo/target/
-
+/checkpoint/
