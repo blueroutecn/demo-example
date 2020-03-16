@@ -7,19 +7,36 @@ Spark 的示例代码
     - 用户自定义函数
 ## Spark streaming
 
-1. FileWordCountStreamingObject
-    - 文本文件做单词统计
+1. 文本文件做单词统计
+    - FileWordCountStreamingObject.scala
+    - textFileStream 文件中获取数据流
 
-2. KafkaCountStreamingObject
-    - spark 连接 kafka 的消费者做文本文件做单词统计
-
-3. UserDefineWordCountStreamingObject
-    - 用户自定义 仿照 socket 接收器
-
-4. WordCountStreamingObject
-    - Socket 连接做单词统计
+2. Socket 连接做单词统计
+    - WordCountStreamingObject.scala
+    - socketTextStream socket中获取数据流
+    
+3. 用户自定义(仿照socket 接收器)
+    - UserDefineWordCountStreamingObject.scala
+    - extends Receiver 接收器
+    - receiverStream 指定接收器
+    
+4. 连接 Kafka 的消费者做单词统计
+    - KafkaCountStreamingObject.scala
+    - KafkaUtils.createDirectStream
+    - kafkaParams kafka 的参数设置
+5. 有状态的 streaming 持续统计(记录历史)
+    - UpdateStateObject
+    - sparkContext.setCheckpointDir 设置检查点目录
+    - updateStateByKey 更新状态
+6. 窗口操作
+    - WindowSlidingObject.scala
+    - window(windowDuration,slidingDuration) 两个参数必须是采集周期的整数倍
+    - window 之前必须map成可以序列化的DStream(ConsumerRecord 不可序列化)
     
 # flume -demo
-1. TypeInterceptor
-对接kafka的自定义flume拦截器，把 包含 hello字符串 的文本发送给 first 主题
-不包含的 发送给 sencond 主题
+1. 自定义拦截器(对接kafka sink)
+    - TypeInterceptor.java
+    - implements Interceptor 接口
+    - Interceptor.Builder 工厂
+    - 包含hello字符串 发送给first 主题
+    - 不包含的hello 发送给 sencond 主题

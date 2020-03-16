@@ -1,16 +1,20 @@
 package com.thirdlucky.sparkstreaming
 
+import org.apache.kafka.clients.consumer.ConsumerRecord
 import org.apache.kafka.common.serialization.StringDeserializer
-import org.apache.spark.streaming.dstream.{DStream}
-import org.apache.spark.streaming.kafka010._
-import org.apache.spark.streaming.kafka010.LocationStrategies.PreferConsistent
+import org.apache.spark.streaming.dstream.DStream
 import org.apache.spark.streaming.kafka010.ConsumerStrategies.Subscribe
+import org.apache.spark.streaming.kafka010.KafkaUtils
+import org.apache.spark.streaming.kafka010.LocationStrategies.PreferConsistent
 
-object KafkaCountStreamingObject {
+object WindowSlidingObject {
   def main(args: Array[String]): Unit = {
+//    scala 滑动窗口
+//    val iterator: Iterator[List[Int]] = List(1, 2, 3, 4, 5, 6, 7, 8, 9).sliding(3, 2)
+//    iterator.foreach(iter=>println(iter.mkString(",")))
     import org.apache.spark.SparkConf
     import org.apache.spark.streaming.{Seconds, StreamingContext}
-    val conf = new SparkConf().setAppName("spark-stream-kafka").setMaster("local[*]")
+    val conf = new SparkConf().setAppName("spark-stream-window").setMaster("local[*]")
     val streamingContext = new StreamingContext(conf, Seconds(3))
 
     val kafkaParams = Map[String, Object](
@@ -30,11 +34,15 @@ object KafkaCountStreamingObject {
       Subscribe[String, String](topics, kafkaParams)
     )
 
-    val wordStream: DStream[String] = stream.flatMap(_.value.split(" "))
-    val tupleStream: DStream[(String, Int)] = wordStream.map((_, 1))
-    val wordCount: DStream[(String, Int)] = tupleStream.reduceByKey(_ + _)
 
-    wordCount.print()
+    val windowStream = stream.map(_.value).window(Seconds(9), Seconds(3))
+
+    val wordStream: DStream[String] = windowStream.flatMap(_.split(" "))
+    val tupleStream: DStream[(String, Int)] = wordStream.map((_, 1))
+
+    val sumStream: DStream[(String, Int)] = tupleStream.reduceByKey(_ + _)
+
+    sumStream.print()
 
     // 启动采集器
     streamingContext.start()

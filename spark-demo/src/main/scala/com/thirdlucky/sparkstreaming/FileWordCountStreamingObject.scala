@@ -9,9 +9,9 @@ object FileWordCountStreamingObject {
     val conf = new SparkConf().setAppName("spark-stream-test").setMaster("local[*]")
     val streaming = new StreamingContext(conf,Seconds(5))
     val fileStream: DStream[String] = streaming.textFileStream("streamsource")
-    val wordRDD: DStream[String] = fileStream.flatMap(_.split(" "))
-    val tupleRDD: DStream[(String, Int)] = wordRDD.map((_, 1))
-    val wordCount: DStream[(String, Int)] = tupleRDD.reduceByKey(_ + _)
+    val wordStream: DStream[String] = fileStream.flatMap(_.split(" "))
+    val tupleStream: DStream[(String, Int)] = wordStream.map((_, 1))
+    val wordCount: DStream[(String, Int)] = tupleStream.reduceByKey(_ + _)
 
     wordCount.print()
 

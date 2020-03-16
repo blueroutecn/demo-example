@@ -10,9 +10,9 @@ object WordCountStreamingObject {
     val streaming = new StreamingContext(conf,Seconds(3))
 
     val receiver: ReceiverInputDStream[String] = streaming.socketTextStream("192.168.227.135", 9999)
-    val wordRDD: DStream[String] = receiver.flatMap(_.split(" "))
-    val tupleRDD: DStream[(String, Int)] = wordRDD.map((_, 1))
-    val wordCount: DStream[(String, Int)] = tupleRDD.reduceByKey(_ + _)
+    val wordStream: DStream[String] = receiver.flatMap(_.split(" "))
+    val tupleStream: DStream[(String, Int)] = wordStream.map((_, 1))
+    val wordCount: DStream[(String, Int)] = tupleStream.reduceByKey(_ + _)
 
     wordCount.print()
 
