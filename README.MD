@@ -33,10 +33,20 @@ Spark 的示例代码
     - window(windowDuration,slidingDuration) 两个参数必须是采集周期的整数倍
     - window 之前必须map成可以序列化的DStream(ConsumerRecord 不可序列化)
     
-# flume -demo
+# flume-demo
 1. 自定义拦截器(对接kafka sink)
     - TypeInterceptor.java
     - implements Interceptor 接口
     - Interceptor.Builder 工厂
     - 包含hello字符串 发送给first 主题
     - 不包含的hello 发送给 sencond 主题
+    
+# hbase-demo
+1. 判断表存在
+
+# storm-demo
+1. 随机字符数据源
+    - RandonToplogic.java 处理器
+    - RandonSpout.java     随机字符串数据源
+    - WrapStarBolt  星号处理器
+    - WrapWellBolt  井号处理器

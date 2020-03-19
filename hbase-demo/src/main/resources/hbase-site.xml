@@ -1,0 +1,23 @@
+<configuration>
+    <property>
+        <name>hbase.rootdir</name>
+        <value>hdfs://hadoop-node1:9000/hbase</value>
+    </property>
+    <property>
+        <name>hbase.cluster.distributed</name>
+        <value>true</value>
+    </property>
+    <property>
+        <name>hbase.zookeeper.quorum</name>
+        <value>hadoop-node1,hadoop-node2,hadoop-node3</value>
+    </property>
+    <property>
+        <name>hbase.zookeeper.property.dataDir</name>
+        <value>/data/zookeeper-data/</value>
+    </property>
+    <property>
+        <name>hbase.unsafe.stream.capability.enforce</name>
+        <!--使用本地文件系统设置为false，使用hdfs设置为true-->
+        <value>false</value>
+    </property>
+</configuration>

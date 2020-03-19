@@ -11,5 +11,7 @@
     <modules>
         <module>flume-demo</module>
         <module>spark-demo</module>
+        <module>hbase-demo</module>
+        <module>storm-demo</module>
     </modules>
 </project>
