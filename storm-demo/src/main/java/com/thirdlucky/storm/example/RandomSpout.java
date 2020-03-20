@@ -1,25 +1,26 @@
 package com.thirdlucky.storm.example;
 
-import org.apache.commons.collections.map.HashedMap;
 import org.apache.storm.spout.SpoutOutputCollector;
 import org.apache.storm.task.TopologyContext;
 import org.apache.storm.topology.OutputFieldsDeclarer;
 import org.apache.storm.topology.base.BaseRichSpout;
 import org.apache.storm.tuple.Fields;
 import org.apache.storm.tuple.Values;
+
 import java.util.concurrent.TimeUnit;
+import java.util.Hashtable;
 
 import java.util.Map;
 
 import static org.apache.storm.shade.io.netty.util.internal.ThreadLocalRandom.current;
 
 
-public class RandonSpout extends BaseRichSpout {
+public class RandomSpout extends BaseRichSpout {
 
-    private static Map<Integer, String> map = new HashedMap();
+    private static Map<Integer, String> map = new Hashtable<>();
     private SpoutOutputCollector collector;
 
-    public RandonSpout() {
+    public RandomSpout() {
         map.put(0, "Kafka");
         map.put(1, "Spark");
         map.put(2, "Flink");

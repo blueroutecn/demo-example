@@ -5,24 +5,24 @@ import org.apache.storm.LocalCluster;
 import org.apache.storm.topology.TopologyBuilder;
 import java.util.concurrent.TimeUnit;
 
-public class RandonToplogic {
+public class RandomToplogic {
     public static void main(String[] args) throws Exception {
         TopologyBuilder builder = new TopologyBuilder();
 
-        builder.setSpout("RandonSpout",new RandonSpout());
-        builder.setBolt("WrapStarBolt",new WrapStarBolt()).shuffleGrouping("RandonSpout");
-        builder.setBolt("WrapWellBolt",new WrapWellBolt()).shuffleGrouping("RandonSpout");
+        builder.setSpout("RandomSpout",new RandomSpout());
+        builder.setBolt("WrapStarBolt",new WrapStarBolt()).shuffleGrouping("RandomSpout");
+        builder.setBolt("WrapWellBolt",new WrapWellBolt()).shuffleGrouping("RandomSpout");
 
         Config config = new Config();
         config.setDebug(true);
 
         LocalCluster cluster = new LocalCluster();
-        cluster.submitTopology("RandonToplogic",config,builder.createTopology());
+        cluster.submitTopology("RandomToplogic",config,builder.createTopology());
 
         System.out.println("start to running...");
 
         TimeUnit.SECONDS.sleep(30);
-        cluster.killTopology("RandonToplogic");
+        cluster.killTopology("RandomToplogic");
         cluster.shutdown();
     }
 }

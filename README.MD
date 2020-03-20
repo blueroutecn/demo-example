@@ -46,7 +46,12 @@ Spark 的示例代码
 
 # storm-demo
 1. 随机字符数据源
-    - RandonToplogic.java 处理器
-    - RandonSpout.java     随机字符串数据源
+    - RandomToplogic.java 处理器
+    - RandonmSpout.java     随机字符串数据源
     - WrapStarBolt  星号处理器
     - WrapWellBolt  井号处理器
+2. 读取 website 文件打印
+    - WebCountGenerator 文件生成器
+    - WebCountSpout  水源，读取文件放入 stream
+    - WebCountBolt   阀门，输出 session_id 信息
+    - WebCountTopology  拓扑逻辑
