@@ -19,5 +19,6 @@
         <module>spark-demo</module>
         <module>hbase-demo</module>
         <module>storm-demo</module>
+        <module>flink-demo</module>
     </modules>
 </project>
