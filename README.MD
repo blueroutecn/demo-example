@@ -60,8 +60,10 @@ Spark 的示例代码
     - WordCountSplitBolt    按照空格拆分字符串
     - WordCountSumBold      统计单词数量
     - WordCountTopology     图谱连接
-4. PV统计
+4. PV UV 统计
     - PVSpout               文件读取网站访问数据
     - PVSessionBolt         把session读取出来计算PV
     - PVSumBolt             计算总访问数PV(多个线程值相加)
+    - UVSessionBolt         多线程统计UV
+    - UVSumBolt             汇总UV
     - PVTopology            拓扑关系
