@@ -30,6 +30,23 @@ public class WebCountSpout implements IRichSpout {
     }
 
     @Override
+    public void nextTuple() {
+        try {
+            String str;
+            while ((str = bufferedReader.readLine()) != null) {
+                collector.emit(new Values(str));
+                Thread.sleep(500);
+            }
+        } catch (Exception ex) {
+        }
+    }
+
+    @Override
+    public void declareOutputFields(OutputFieldsDeclarer outputFieldsDeclarer) {
+        outputFieldsDeclarer.declare(new Fields("webcount"));
+    }
+
+    @Override
     public void close() {
 
     }
@@ -45,18 +62,6 @@ public class WebCountSpout implements IRichSpout {
     }
 
     @Override
-    public void nextTuple() {
-        try {
-            String str;
-            while ((str = bufferedReader.readLine()) != null) {
-                collector.emit(new Values(str));
-                Thread.sleep(500);
-            }
-        } catch (Exception ex) {
-        }
-    }
-
-    @Override
     public void ack(Object o) {
 
     }
@@ -64,11 +69,6 @@ public class WebCountSpout implements IRichSpout {
     @Override
     public void fail(Object o) {
 
-    }
-
-    @Override
-    public void declareOutputFields(OutputFieldsDeclarer outputFieldsDeclarer) {
-        outputFieldsDeclarer.declare(new Fields("webcount"));
     }
 
     @Override

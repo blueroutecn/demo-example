@@ -13,10 +13,18 @@ public class WebCountGenerator {
         String[] time = {"2014-01-07 08:40:50", "2014-01-07 08:40:51", "2014-01-07 08:40:52", "2014-01-07 08:40:53",
                 "2014-01-07 09:40:49", "2014-01-07 10:40:49", "2014-01-07 11:40:49", "2014-01-07 12:40:49"};
 
+        String[] ips = {"192.168.227.161", "192.168.227.162", "192.168.227.163", "192.168.227.135", "192.168.227.160"};
+
         Random random = new Random();
         StringBuffer sbBuffer = new StringBuffer();
-        for (int i = 0; i < 50; i++) {
-            sbBuffer.append(host + "\t" + session_id[random.nextInt(5)] + "\t" + time[random.nextInt(8)] + "\n");
+        for (int i = 1; i <= 30; i++) {
+            sbBuffer.append(String.format("%s\t%d:%s\t%s\t%s\n",
+                    host,
+                    i,
+                    session_id[random.nextInt(5)],
+                    time[random.nextInt(8)],
+                    ips[random.nextInt(5)]
+            ));
         }
 
         byte[] b = (sbBuffer.toString()).getBytes();
