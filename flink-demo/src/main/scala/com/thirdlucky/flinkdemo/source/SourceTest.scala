@@ -1,7 +1,14 @@
 package com.thirdlucky.flinkdemo.source
 
+import org.apache.flink.api.common.functions.RichMapFunction
 import org.apache.flink.streaming.api.scala._
 case class SensorReading(id: String, timestamp: Long, temperature: Double)
+class SensorMapper() extends RichMapFunction[String,SensorReading]{
+  override def map(in: String): SensorReading = {
+    val s: Array[String] = in.split(",")
+    SensorReading(s(0),s(1).toLong,s(2).toDouble)
+  }
+}
 
 object SourceTest {
   def main(args: Array[String]): Unit = {
